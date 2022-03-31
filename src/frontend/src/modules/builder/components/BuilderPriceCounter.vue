@@ -1,7 +1,7 @@
 <template>
   <div class="content__result">
     <p>Итого: {{ price }} ₽</p>
-    <button type="button" class="button" :disabled="price <= 0">
+    <button type="submit" class="button" :disabled="!hasNameAndIngredients">
       Готовьте!
     </button>
   </div>
@@ -13,6 +13,19 @@ export default {
     price: {
       type: Number,
       default: 0,
+    },
+    pizzaHasName: {
+      type: Boolean,
+      default: false,
+    },
+    pizzaHasIngredients: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  computed: {
+    hasNameAndIngredients() {
+      return this.pizzaHasIngredients && this.pizzaHasName;
     },
   },
 };

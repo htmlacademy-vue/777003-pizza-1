@@ -33,8 +33,13 @@
           :sauce="order.sauce"
           :size="order.size"
           :dough="order.dough"
+          v-model="pizzaName"
         >
-          <builder-price-counter :price="totalPrice" />
+          <builder-price-counter
+            :price="totalPrice || 0"
+            :pizzaHasName="pizzaHasName"
+            :pizzaHasIngredients="pizzaHasIngredients"
+          />
         </builder-pizza-view>
       </div>
     </form>
@@ -66,6 +71,7 @@ export default {
       pizza,
       user,
       maxIngredientsCount: 3,
+      pizzaName: null,
       order: {
         selectedIngredients: {},
         size: {},
@@ -89,6 +95,14 @@ export default {
       return this.order.size.multiplier != 0
         ? total * this.order.size.multiplier
         : total;
+    },
+    pizzaHasName() {
+      return !!this.pizzaName;
+    },
+    pizzaHasIngredients() {
+      return Object.values(this.order.selectedIngredients).some(
+        (value) => value != 0
+      );
     },
   },
   methods: {

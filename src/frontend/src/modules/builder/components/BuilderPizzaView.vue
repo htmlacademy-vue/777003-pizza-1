@@ -6,6 +6,9 @@
         type="text"
         name="pizza_name"
         placeholder="Введите название пиццы"
+        required
+        :value="pizzaName"
+        @input="$emit('input', $event.target.value)"
       />
     </label>
     <drop-area class="content__constructor" @drop="onItemDrop">
@@ -33,7 +36,14 @@ import DropArea from "@/common/components/DropArea.vue";
 export default {
   name: "BuilderIngredientsSelector",
   components: { DropArea },
+  model: {
+    prop: "pizzaName",
+    event: "input",
+  },
   props: {
+    pizzaName: {
+      type: String,
+    },
     ingredients: {
       type: [Array, Object],
       required: false,
